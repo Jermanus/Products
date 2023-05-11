@@ -42,7 +42,6 @@ class ProductController extends Controller
     {
         //dd($request->all());
         $plan = Product::find($request->plan);
-        dd($plan);
         $subscription = $request->user()->newSubscription($request->name, $plan->stripe_id)->create($request->token);
 
 

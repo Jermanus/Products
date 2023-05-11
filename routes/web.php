@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\ProductController::class, 'index'])->name('home');
+
+Route::middleware("auth")->group(function () {
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('products/{plan}', [ProductController::class, 'show'])->name("products.show");
+    Route::post('subscription', [ProductController::class, 'subscription'])->name("subscription.create");
+});
+
